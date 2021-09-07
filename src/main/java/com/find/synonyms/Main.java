@@ -2,29 +2,38 @@ package com.find.synonyms;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
-//        private final static String fileName = "src/main/resources/input/example.in";
+    //    private final static String fileName = "src/main/resources/input/example.in";
     private final static String fileName = "src/main/resources/input/example_big.in";
+    //    private final static String fileName = "src/main/resources/input/test.in";
+    private final static String path = "result.out";
 
     public static void main(String[] args) {
         try {
             File file = new File(fileName);
             Scanner scanner = new Scanner(file);
+            StringBuilder output = new StringBuilder();
 
-            int testCase = Integer.parseInt(scanner.nextLine().trim());
-            System.out.println("Test case: " + testCase);
+            int numberOfTestCase = Integer.parseInt(scanner.nextLine().trim());
 
-            int count = 0;
             while (scanner.hasNextLine()) {
                 Map<String, Set<String>> synonymsMap = new HashMap<>();
-                // 1. dictionary
+
+                // 1. read the dictionary
                 int n = Integer.parseInt(scanner.nextLine().trim());
+                if (n < 0 || n > 100) {
+                    throw new IllegalArgumentException("expected range <0;100> for N");
+                }
                 for (int i = 0; i < n; i++) {
-                    String data = scanner.nextLine().toLowerCase(Locale.ROOT);
-                    String firstWord = data.split(" ")[0];
-                    String secWord = data.split(" ")[1];
+                    String[] pair = scanner.nextLine()
+                            .toLowerCase(Locale.ROOT)
+                            .split("\\s");
+                    String firstWord = pair[0];
+                    String secWord = pair[1];
 
                     if (synonymsMap.get(firstWord) != null) {
                         addToMap(synonymsMap, firstWord, secWord);
@@ -40,23 +49,28 @@ public class Main {
                     }
                 }
 
-                // 2. words
-                n = Integer.parseInt(scanner.nextLine().trim());
-                for (int i = 0; i < n; i++) {
-                    String data = scanner.nextLine().toLowerCase(Locale.ROOT);
-                    String firstWord = data.split(" ")[0];
-                    String secWord = data.split(" ")[1];
-                    System.out.print((++count) + ": " + data);
+                // 2. define synonyms
+                int q = Integer.parseInt(scanner.nextLine().trim());
+                if (q < 0 || q > 100) {
+                    throw new IllegalArgumentException("expected range <0;100> for Q");
+                }
+                for (int i = 0; i < q; i++) {
+                    String[] pair = scanner.nextLine()
+                            .toLowerCase(Locale.ROOT)
+                            .split("\\s");
+                    String firstWord = pair[0];
+                    String secWord = pair[1];
+
                     if (firstWord.equals(secWord) ||
                             (synonymsMap.get(firstWord) != null && synonymsMap.get(firstWord).contains(secWord))) {
-                        System.out.println("\t\tare synonyms;");
+                        output.append("synonyms");
                     } else {
-                        System.out.println("\t\tare different;");
+                        output.append("different");
                     }
+                    output.append(System.lineSeparator());
                 }
-                System.out.println();
             }
-
+            write(output.toString());
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred");
             e.printStackTrace();
@@ -72,5 +86,14 @@ public class Main {
             }
         }
         synonymsMap.put(secWord, synonymsMap.get(firstWord));
+    }
+
+    static public void write(String src) {
+        try (FileWriter writer = new FileWriter(path, false)) {
+            writer.write(src);
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
