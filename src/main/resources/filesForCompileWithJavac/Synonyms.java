@@ -1,5 +1,3 @@
-package com.find.synonyms;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -7,10 +5,11 @@ import java.io.IOException;
 import java.util.*;
 
 public class Synonyms {
-    private final static String fileName = "src/main/resources/input/example.in";
-    //private final static String fileName = "src/main/resources/input/example_big.in";
-    //private final static String fileName = "src/main/resources/input/test.in";
-    private final static String path = "result.out";
+    private final static String fileName = "example.in";
+    //private final static String fileName = "example_big.in";
+    //private final static String fileName = "test.in";
+    
+	private final static String path = "result.out";
 
     public static void main(String[] args) {
         File file = new File(fileName);
