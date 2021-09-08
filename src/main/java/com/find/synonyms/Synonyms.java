@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
-public class Main {
+public class Synonyms {
     //    private final static String fileName = "src/main/resources/input/example.in";
     private final static String fileName = "src/main/resources/input/example_big.in";
     //    private final static String fileName = "src/main/resources/input/test.in";
