@@ -93,4 +93,3 @@ You can also test your code on the bigger file:
 **Goal**
 
    Solve the problem for the [test input file](https://drive.google.com/open?id=14ad4U4Q82kmH5NBGG5nQhjntSQ2kzTGY) and send us the solution.
-   
