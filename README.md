@@ -1,6 +1,6 @@
 # Synonyms_interview
 
-##Task description
+## Task description
 
 In this task, your job will be to write a program that can decide whether two words are synonyms or not. You will get a
 synonym dictionary describing pairs of synonymous words. Afterwards, you will answer several queries asking whether
